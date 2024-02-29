@@ -1,26 +1,31 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import {useDispatch, useSelector} from "react-redux";
+import {useAppSelector} from "./index";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    const dispatch = useDispatch()
+
+    const cash = useAppSelector(state => state.cash)
+
+    const addCash = (cash:number) => {
+        dispatch({type: 'ADD-CASH', payload: cash})
+    }
+    const getCash = (cash:number) => {
+        dispatch({type: 'GET-CASH', payload: cash})
+    }
+
+
+    return (
+        <div className="App">
+            <span style={{fontSize: "20px"}}> {cash}</span>
+            <div style={{display: "flex"}}>
+                <button onClick={() => addCash(Number(prompt()))}>Deposit Money</button>
+                <button onClick={() => getCash(Number(prompt()))}>Withdraw Money</button>
+            </div>
+        </div>
+    );
 }
 
 export default App;
