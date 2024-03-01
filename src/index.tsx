@@ -3,51 +3,8 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
-import {legacy_createStore as createStore} from "redux";
-import {TypedUseSelectorHook, Provider, useSelector} from "react-redux";
-
-
-type defaultStateType = {
-    cash: number
-}
-const defaultState = {
-    cash: 0,
-}
-
-
-
-type addCashTypeAC = ReturnType<typeof addCashAC>
-type getCashTypeAC = ReturnType<typeof getCashAC>
-type ActionType = addCashTypeAC |getCashTypeAC
-const reducer = (state= defaultState, action: ActionType): defaultStateType => {
-    switch (action.type) {
-        case "ADD-CASH":
-            return {...state, cash: state.cash + action.payload}
-        case "GET-CASH":
-            return {...state, cash: state.cash - action.payload}
-        default:
-            return state
-    }
-}
-
-export const addCashAC = () => {
-    return {
-        type: "ADD-CASH",
-        payload: 3
-    } as const
-}
-
-export const getCashAC = () => {
-    return {
-        type: "GET-CASH",
-        payload: 3
-    } as const
-}
-const store = createStore(reducer)
-export type reducerType = ReturnType<typeof reducer>
-export type RootState = ReturnType<typeof store.getState>
-export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
-
+import { Provider} from "react-redux";
+import {store} from "./store/store";
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
